@@ -18,3 +18,4 @@
     src: /tmp/frontend-main/static/
     dest: /usr/share/nginx/html
 
+
