@@ -17,7 +17,7 @@
 - name: Copy the files to tmp html
   ansible.builtin.copy:
     src: /tmp/frontend-main/static/
-    dest: /usr/share/nginx/html
+    dest: /usr/share/nginx/html/
     remote_src: yes
 
 - name: add roboshop.config file to the location
