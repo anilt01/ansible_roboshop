@@ -1,7 +1,7 @@
 - name: Installing Nginx
   ansible.builtin.yum:
      name: Nginx
-     state: Installed
+     state: installed
 
 - name: cleaning all previous files
   ansible.builtin.file:
@@ -17,5 +17,6 @@
   ansible.builtin.copy:
     src: /tmp/frontend-main/static/
     dest: /usr/share/nginx/html
+    remote_src: yes
 
 
