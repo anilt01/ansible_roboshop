@@ -12,11 +12,13 @@
   ansible.builtin.unarchive:
     src: https://github.com/roboshop-devops-project/frontend/archive/main.zip
     dest: /tmp
+    remote_src: yes
 
 - name: Copy the files to tmp html
   ansible.builtin.copy:
     src: /tmp/frontend-main/static/
     dest: /usr/share/nginx/html
+
 
 
 
