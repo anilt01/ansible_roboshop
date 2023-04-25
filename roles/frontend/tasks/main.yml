@@ -1,6 +1,6 @@
 - name: Installing Nginx
   ansible.builtin.yum:
-     name: Nginx
+     name: nginx
      state: installed
 
 - name: cleaning all previous files
