@@ -51,7 +51,7 @@
     dest: /usr/share/nginx/html/
     remote_src: yes
 
-- name:  Add config file to the location
+- name: Copy Roboshop Nginx config file
   ansible.builtin.copy:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
