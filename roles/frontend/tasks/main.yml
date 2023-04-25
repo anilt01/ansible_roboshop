@@ -20,7 +20,38 @@
     dest: /usr/share/nginx/html/
     remote_src: yes
 
-- name: add roboshop.config file to the location
+- name:  file to the location
+  ansible.builtin.copy:
+    src: roboshop.conf
+    dest: /etc/nginx/default.d/roboshop.conf
+    remote_src: yes
+
+
+
+
+- name: Installing Nginx
+  ansible.builtin.yum:
+     name: nginx
+     state: installed
+
+- name: cleaning all previous files
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: Unzipping the file
+  ansible.builtin.unarchive:
+    src: https://github.com/roboshop-devops-project/frontend/archive/main.zip
+    dest: /tmp
+    remote_src: yes
+
+- name: Copy the files to tmp html
+  ansible.builtin.copy:
+    src: /tmp/frontend-main/static/
+    dest: /usr/share/nginx/html/
+    remote_src: yes
+
+- name:  Add config file to the location
   ansible.builtin.copy:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
