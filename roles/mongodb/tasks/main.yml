@@ -1,0 +1,47 @@
+- name: Copying mongo repo file to the path
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+
+- name: Installing MongoDB
+  ansible.builtin.yum:
+    name: mongodb-org
+    state: installed
+
+- name: change the mongodb listen address
+  ansible.builtin.replace:
+    path: /etc/mongod.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+- name: enable and restart mongoDB
+  ansible.builtin.systemd:
+    name: mongod
+    status: restarted
+    enabled: yes
+
+- name: cleaning all previous files
+  ansible.builtin.file:
+    path: /tmp/mongod*
+    state: absent
+
+- name: Unzipping the file
+  ansible.builtin.unarchive:
+    src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
+    dest: /tmp/
+    remote_src: yes
+
+- name: Load catalogue file
+  community.mongodb.mongodb_shell:
+    file: "/tmp/mongodb-main/catalogue.js"
+    idempotent: yes
+
+- name: Load catalogue schema
+  community.mongodb.mongodb_shell:
+    file: "/tmp/mongodb-main/catalogue.js"
+    idempotent: yes
+
+- name: Load Users schema
+  community.mongodb.mongodb_shell:
+    file: "/tmp/mongodb-main/users.js"
+    idempotent: yes
