@@ -17,7 +17,7 @@
 - name: enable and restart mongoDB
   ansible.builtin.systemd:
     name: mongod
-    status: restarted
+    state: restarted
     enabled: yes
 
 - name: cleaning all previous files
